@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    environment{
+    environment {
 
     ANSIBLE_PRIVATE_KEY=credentials('ssh-key')
 }

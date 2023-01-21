@@ -1,6 +1,9 @@
 pipeline {
     agent any
+    environment{
 
+    ANSIBLE_PRIVATE_KEY=credentials('ssh-key')
+}
     stages {
         stage('Build') {
             steps {
@@ -13,7 +16,7 @@ withCredentials([usernamePassword(credentialsId: 's', passwordVariable: 'passwor
         }
      stage('Deploy') {
             steps {
-              sh "docker run -d --name sharks-$BUILD_ID -p 80$BUILD_ID:8080 zettblater/sharks:v$BUILD_ID"
+              sh "ansible-playbook playbook,yaml -u ansible --private-key=$ANSIBLE_PRIVATE_KEY -e password=$password -e username=$username -e BUILD_ID=$BUILD_ID --become"
             }
         }
 

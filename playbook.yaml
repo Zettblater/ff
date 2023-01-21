@@ -1,20 +1,19 @@
-- name: install docker and start services
+- name: download docker
   hosts: all
   tasks:
   - name: install packages (yum-utils)
     yum:
       name: yum-utils
-      state: present
   - name: add docker engine repository
-    get_url:
+    get_url: 
       url: https://download.docker.com/linux/centos/docker-ce.repo
       dest: /etc/yum.repos.d/docker.repo
       mode: 0644
-  - name: download docker engine
+  - name: download engine docker
     yum:
       name: docker-ce
       state: present
-  - name: start and enable docker service
+  - name: start and enable docerk service
     service:
       name: docker
       enabled: yes
@@ -24,13 +23,12 @@
       name: docker
       state: present
   - name: docker login
-    docker_login:
+    docker_login: 
       username: "{{ username }}"
-      password: "{{ password }}"
+      password: "{{ password }}"     
   - name: download image and start container
     docker_container:
-      name: sharks-app-{{ BUILD_ID }}
-      image: rufatzakirov/sharks:v{{ BUILD_ID }}
+      name: flask-hello{{ BUILD_ID }}
+      image: zettblater/pipeline:v{{ BUILD_ID }}
       ports:
-        - "8888:8080"
-
+        - "5001:8080"

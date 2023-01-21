@@ -13,7 +13,7 @@ withCredentials([usernamePassword(credentialsId: 's', passwordVariable: 'passwor
         }
      stage('Deploy') {
             steps {
-              sh "docker run -d --name sharks-$BUILD_ID -p 80$BUILD_ID:8080 zettblater/sharks:v$BUILD_ID
+              sh "docker run -d --name sharks-$BUILD_ID -p 80$BUILD_ID:8080 zettblater/sharks:v$BUILD_ID"
             }
         }
 

@@ -16,7 +16,7 @@ withCredentials([usernamePassword(credentialsId: 's', passwordVariable: 'passwor
         }
      stage('Deploy') {
             steps { withCredentials([usernamePassword(credentialsId: 's', passwordVariable: 'password', usernameVariable: 'username')]) {
-              sh "ansible-playbook playbook,yaml -u ansible --private-key=$ANSIBLE_PRIVATE_KEY -e password=$password -e username=$username -e BUILD_ID=$BUILD_ID --become -i inventory" }
+              sh "ansible-playbook playbook.yaml -u ansible --private-key=$ANSIBLE_PRIVATE_KEY -e password=$password -e username=$username -e BUILD_ID=$BUILD_ID --become -i inventory" }
             }
         }
 
